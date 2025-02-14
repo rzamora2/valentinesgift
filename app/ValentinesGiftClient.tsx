@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Gift } from "lucide-react";
@@ -20,7 +18,6 @@ const locations = [
       { src: "/dal1.jpg", caption: "New Years in Six Flags" },
       { src: "/f1.jpg", caption: "Racing + Eminem = Focking Chimba" },
       { src: "/fred1.jpg", caption: "Oh Ja Alstadt Bier ist Gut" },
-
       { src: "/palo1.jpg", caption: "Todo Instagram Influencer Couple" },
       {
         src: "/mov1.jpg",
@@ -53,34 +50,45 @@ const locations = [
     ],
   },
   {
-    name: "Colombia",
-    icon: "🇨🇴",
+    name: "Rockies",
+    icon: "🏔️",
     photos: [
-      { src: "/colom1.jpg", caption: "Una Pareja Seria y Profesional" },
-      { src: "/colom2.jpg", caption: "How to be gringo part 23453" },
-      { src: "/colom3.jpg", caption: "Jardin Botanico, o La Selva?" },
-      { src: "/colom4.jpg", caption: "Just a really cute picture" },
-      { src: "/colom5.jpg", caption: "Lake Meredith but Green" },
       {
-        src: "/colom6.jpg",
-        caption: "Con la cerveza en la mano y mi amor a mi lado",
+        src: "/images/rockies-photo1.jpg",
+        caption: "Caption for rockies-photo1",
+      },
+      {
+        src: "/images/rockies-photo2.jpg",
+        caption: "Caption for rockies-photo2",
       },
     ],
   },
   {
-    name: "Chicago",
+    name: "Colombia",
+    icon: "🇨🇴",
+    photos: [
+      {
+        src: "/images/colombia-photo1.jpg",
+        caption: "Caption for colombia-photo1",
+      },
+      {
+        src: "/images/colombia-photo2.jpg",
+        caption: "Caption for colombia-photo2",
+      },
+    ],
+  },
+  {
+    name: "Illinois",
     icon: "🌆",
     photos: [
       {
-        src: "/chi1.jpg",
-        caption: "First Frozen Lake (MediPark does not count)",
+        src: "/images/illinois-photo1.jpg",
+        caption: "Caption for illinois-photo1",
       },
-      { src: "/chi2.jpg", caption: "Wow the sky was so clear that day!" },
       {
-        src: "/chi3.jpg",
-        caption: "A picture with the greatest of all time, and Michael Jordan",
+        src: "/images/illinois-photo2.jpg",
+        caption: "Caption for illinois-photo2",
       },
-      { src: "/chi4.jpg", caption: "Yesicanha y Ricardinho" },
     ],
   },
 ];
@@ -121,7 +129,7 @@ export default function ValentinesGiftClient() {
   return (
     <div className="min-h-screen bg-pink-100 flex flex-col items-center justify-center p-4">
       <h1 className="text-3xl font-bold text-pink-600 mb-8">
-        Happy Valentine's Day, Mi Amor!
+        Happy Valentine&apos;s Day, Mi Amor!
       </h1>
 
       <AnimatePresence mode="wait">
@@ -138,47 +146,51 @@ export default function ValentinesGiftClient() {
           >
             <Gift size={200} color="#e91e63" />
             <p className="text-center mt-4 text-xl text-pink-600">
-              Click to unwrap!
+              Click to open your gift!
             </p>
           </motion.div>
         )}
-
-        {isFirstGiftOpen &&
-          currentLocation &&
-          !showingPhotos &&
-          !showFinalSurprise && (
-            <motion.div
-              key={currentLocation.name}
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.5 }}
-              transition={{ duration: 0.5 }}
-              className="flex flex-col items-center"
-            >
-              <LocationIcon
-                name={currentLocation.name}
-                icon={currentLocation.icon}
-                onClick={handleLocationClick}
-                size="large"
-              />
-              <p className="mt-4 text-xl text-pink-600">
-                Our memories from {currentLocation.name}!
-              </p>
-            </motion.div>
-          )}
-
-        {showingPhotos && (
-          <PhotoGallery
-            key="photos"
-            photos={currentLocation.photos}
-            onClose={handleClosePhotos}
-          />
-        )}
-
-        {showFinalSurprise && (
-          <FinalSurprise key="final" onReset={handleReset} />
-        )}
       </AnimatePresence>
+
+      {isFirstGiftOpen && (
+        <div>
+          <h2 className="text-2xl font-bold text-pink-600 mb-4">
+            {currentLocation?.name}
+          </h2>
+          <div className="flex flex-wrap justify-center">
+            {currentLocation?.photos.map((photo, index) => (
+              <div
+                key={index}
+                className="m-2 cursor-pointer"
+                onClick={handleLocationClick}
+              >
+                <LocationIcon
+                  icon={currentLocation.icon}
+                  name={""}
+                  onClick={function (): void {
+                    throw new Error("Function not implemented.");
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {showingPhotos && currentLocation && (
+        <PhotoGallery
+          photos={currentLocation.photos}
+          onClose={handleClosePhotos}
+        />
+      )}
+
+      {showFinalSurprise && (
+        <FinalSurprise
+          onReset={function (): void {
+            throw new Error("Function not implemented.");
+          }}
+        />
+      )}
     </div>
   );
 }
