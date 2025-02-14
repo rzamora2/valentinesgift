@@ -1,3 +1,5 @@
+"use Client";
+
 import ValentinesGiftClient from "./ValentinesGiftClient";
 
 export default function ValentinesGift() {
