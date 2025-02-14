@@ -1,3 +1,5 @@
+"useClient";
+
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Gift } from "lucide-react";
